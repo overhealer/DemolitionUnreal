@@ -10,6 +10,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "Weapon.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -73,6 +74,10 @@ void ADemolitionCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ADemolitionCharacter::Look);
+
+		//Fire
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &ADemolitionCharacter::Fire);
+
 	}
 	else
 	{
@@ -107,6 +112,29 @@ void ADemolitionCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void ADemolitionCharacter::PickupWeapon(AWeapon* weapon)
+{
+	// Check that the character is valid, and has no rifle yet
+	if (CurrentWeapon == nullptr)
+	{
+		return;
+	}
+
+	if (CurrentWeapon != nullptr)
+	{
+		CurrentWeapon->Detach();
+	}
+
+	CurrentWeapon = weapon;
+
+	// Attach the weapon to the First Person Character
+	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
+	AttachToComponent(Mesh1P, AttachmentRules, FName(TEXT("GripPoint")));
+
+	// switch bHasRifle so the animation blueprint can switch to another animation set
+	SetHasRifle(true);
+}
+
 void ADemolitionCharacter::SetHasRifle(bool bNewHasRifle)
 {
 	bHasRifle = bNewHasRifle;
@@ -115,4 +143,11 @@ void ADemolitionCharacter::SetHasRifle(bool bNewHasRifle)
 bool ADemolitionCharacter::GetHasRifle()
 {
 	return bHasRifle;
+}
+
+void ADemolitionCharacter::Fire()
+{
+	if (CurrentWeapon == nullptr)
+		return;
+	CurrentWeapon->Fire(this);
 }
