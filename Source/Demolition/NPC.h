@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "GameFramework/Character.h"
+#include "PatrolPath.h"
 #include "NPC.generated.h"
 
 UCLASS()
@@ -30,6 +31,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="AI", meta=(AllowPrivateAccess="true"))
 	UBehaviorTree* Tree;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
+	APatrolPath* PatrolPath;
 };
