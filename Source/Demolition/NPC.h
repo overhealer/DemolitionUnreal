@@ -8,16 +8,17 @@
 #include "PatrolPath.h"
 #include "CombatInterface.h"
 #include "Animation/AnimMontage.h"
+#include "ALSV4_CPP/Public/Character/ALSCharacter.h"
 #include "NPC.generated.h"
 
 UCLASS()
-class DEMOLITION_API ANPC : public ACharacter, public ICombatInterface
+class DEMOLITION_API ANPC : public AALSCharacter, public ICombatInterface
 {
 	GENERATED_BODY()
 
-public:
-	// Sets default values for this character's properties
-	ANPC();
+//public:
+//	// Sets default values for this character's properties
+//	ANPC() = default;
 
 
 public:	

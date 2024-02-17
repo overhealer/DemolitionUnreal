@@ -51,7 +51,7 @@ void ANPC_AIController::SetupPerceptionSystem()
 
 void ANPC_AIController::OnTargetDetected(AActor* Actor, FAIStimulus const Stimulus)
 {
-	if (auto* const character = Cast<ADemolitionCharacter>(Actor))
+	if (auto* const character = Cast<AALSCharacter>(Actor))
 	{
 		GetBlackboardComponent()->SetValueAsBool("CanSeePlayer", Stimulus.WasSuccessfullySensed());
 	}

@@ -15,9 +15,10 @@ public class Demolition : ModuleRules
 			"Engine", 
 			"InputCore", 
 			"EnhancedInput", 
-			"AIModule",  
-			"GameplayTasks",
-			"NavigationSystem"
-		});
+			"AIModule", 
+			"GameplayTasks", 
+			"NavigationSystem", 
+            "ALSV4_CPP" 
+        });
 	}
 }
