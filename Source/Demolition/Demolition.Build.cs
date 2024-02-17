@@ -18,7 +18,10 @@ public class Demolition : ModuleRules
 			"AIModule", 
 			"GameplayTasks", 
 			"NavigationSystem", 
-            "ALSV4_CPP" 
+            "ALSV4_CPP",
+            "UMG", 
+			"Slate", 
+			"SlateCore" 
         });
 	}
 }
