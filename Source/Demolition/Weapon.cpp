@@ -13,55 +13,26 @@
 
 AWeapon::AWeapon()
 {
-	MuzzleOffset = FVector(100.0f, 0.0f, 10.0f);
-}
+	SkeletalMeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComp"));
 
-void AWeapon::Detach()
-{
-}
-
-
-void AWeapon::Fire(ADemolitionCharacter* character)
-{
-	if (character == nullptr || character->GetController() == nullptr)
+	if (WeaponData.IsNull() == false)
 	{
-		return;
-	}
-
-	// Try and fire a projectile
-	if (ProjectileClass != nullptr)
-	{
-		UWorld* const World = GetWorld();
-		if (World != nullptr)
+		FDemolitionWeaponData* weaponData = WeaponData.GetRow<FDemolitionWeaponData>("Data");
+		if (weaponData != nullptr)
 		{
-			APlayerController* PlayerController = Cast<APlayerController>(character->GetController());
-			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-			const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-
-			//Set Spawn Collision Handling Override
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-			// Spawn the projectile at the muzzle
-			World->SpawnActor<ADemolitionProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			FireSound = weaponData->FireSound;
 		}
-	}
 
-	// Try and play the sound if specified
+
+	}
+}
+
+
+
+void AWeapon::Fire()
+{
 	if (FireSound != nullptr)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, FireSound, character->GetActorLocation());
-	}
-
-	// Try and play a firing animation if specified
-	if (FireAnimation != nullptr)
-	{
-		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = character->GetMesh1P()->GetAnimInstance();
-		if (AnimInstance != nullptr)
-		{
-			AnimInstance->Montage_Play(FireAnimation, 1.f);
-		}
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
 }

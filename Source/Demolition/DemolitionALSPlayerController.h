@@ -25,4 +25,8 @@ public:
 	UPROPERTY()
 	UUserWidget* WeaponHUDWidgetInstance;
 
+	UFUNCTION()
+	void FireAction(const FInputActionValue& Value);
+
+
 };

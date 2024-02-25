@@ -127,16 +127,6 @@ void ADemolitionCharacter::Look(const FInputActionValue& Value)
 
 void ADemolitionCharacter::PickupWeapon(AWeapon* weapon)
 {
-	// Check that the character is valid, and has no rifle yet
-	if (CurrentWeapon == nullptr)
-	{
-		return;
-	}
-
-	if (CurrentWeapon != nullptr)
-	{
-		CurrentWeapon->Detach();
-	}
 
 	CurrentWeapon = weapon;
 
@@ -160,7 +150,5 @@ bool ADemolitionCharacter::GetHasRifle()
 
 void ADemolitionCharacter::Fire()
 {
-	if (CurrentWeapon == nullptr)
-		return;
-	CurrentWeapon->Fire(this);
+
 }
