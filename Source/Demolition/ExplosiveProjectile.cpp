@@ -11,7 +11,7 @@ AExplosiveProjectile::AExplosiveProjectile()
 
 void AExplosiveProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr)/* && OtherComp->IsSimulatingPhysics()*/)
 	{
 		Explode();
 	}
@@ -24,4 +24,10 @@ void AExplosiveProjectile::Explode()
 		ExplosionComp->Explode(GetActorLocation());
 	}
 	Destroy();
+}
+
+void AExplosiveProjectile::SetDamage(float Damage, TSubclassOf<class UDamageType> DamageType)
+{
+	ExplosionComp->BaseDamage = Damage;
+	ExplosionComp->DamageType = DamageType;
 }

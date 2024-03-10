@@ -2,6 +2,7 @@
 
 
 #include "ProjectileWeapon.h"
+#include "ExplosiveProjectile.h"
 #include "DemolitionALSCharacter.h"
 
 void AProjectileWeapon::Fire()
@@ -26,7 +27,11 @@ void AProjectileWeapon::Fire()
 				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 				// Spawn the projectile at the muzzle
-				World->SpawnActor<ADemolitionProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				ADemolitionProjectile* projectile = World->SpawnActor<ADemolitionProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				if (AExplosiveProjectile* expProjectile = Cast<AExplosiveProjectile>(projectile))
+				{
+					expProjectile->SetDamage(WeaponDataRow->BaseDamage, WeaponDataRow->DamageType);
+				}
 			}
 			
 		}

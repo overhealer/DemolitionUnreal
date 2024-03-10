@@ -22,6 +22,7 @@ void ADemolitionALSCharacter::EquipWeapon(AWeapon* weapon)
 	{
 		SetOverlayState(weaponData->PlayerOverlayState);
 	}
+	CurrentWeapon->OnWeaponPickup();
 }
 
 void ADemolitionALSCharacter::UseWeapon()

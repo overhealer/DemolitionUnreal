@@ -26,11 +26,19 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	virtual void Fire();
 
+	virtual void OnWeaponPickup();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* SkeletalMeshComp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USoundBase* FireSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UParticleSystem* FireEmitter;
+
+protected:
+	FDemolitionWeaponData* WeaponDataRow;
 };
 
 USTRUCT(BlueprintType)
@@ -42,6 +50,9 @@ struct FDemolitionWeaponData : public FTableRowBase
 	USoundBase* FireSound;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Data")
+	UParticleSystem* FireEmitter;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon Data")
 	int MaxAmmoInClip;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Data")
@@ -49,4 +60,7 @@ struct FDemolitionWeaponData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Data")
 	EALSOverlayState PlayerOverlayState;
+
+	UPROPERTY(EditAnywhere, Category = "Weapon Data")
+	TSubclassOf<UDamageType> DamageType;
 };

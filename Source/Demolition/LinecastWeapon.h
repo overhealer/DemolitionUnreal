@@ -14,4 +14,9 @@ class DEMOLITION_API ALinecastWeapon : public AWeapon
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
+	void Fire() override;
 };

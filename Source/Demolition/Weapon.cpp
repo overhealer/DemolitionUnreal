@@ -14,17 +14,6 @@
 AWeapon::AWeapon()
 {
 	SkeletalMeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComp"));
-
-	if (WeaponData.IsNull() == false)
-	{
-		FDemolitionWeaponData* weaponData = WeaponData.GetRow<FDemolitionWeaponData>("Data");
-		if (weaponData != nullptr)
-		{
-			FireSound = weaponData->FireSound;
-		}
-
-
-	}
 }
 
 
@@ -34,5 +23,25 @@ void AWeapon::Fire()
 	if (FireSound != nullptr)
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+	}
+
+	if (FireEmitter)
+	{
+		UGameplayStatics::SpawnEmitterAttached(FireEmitter, SkeletalMeshComp, "MuzzleFlash");
+	}
+	
+}
+
+void AWeapon::OnWeaponPickup()
+{
+	if (WeaponData.IsNull() == false)
+	{
+		WeaponDataRow = WeaponData.GetRow<FDemolitionWeaponData>("Data");
+		if (WeaponDataRow != nullptr)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("INIT WEAPON"));
+			FireSound = WeaponDataRow->FireSound;
+			FireEmitter = WeaponDataRow->FireEmitter;
+		}
 	}
 }
