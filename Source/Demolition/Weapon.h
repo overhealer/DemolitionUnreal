@@ -36,6 +36,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UParticleSystem* FireEmitter;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UParticleSystem* HitEmitter;
 
 protected:
 	FDemolitionWeaponData* WeaponDataRow;
@@ -51,6 +53,8 @@ struct FDemolitionWeaponData : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Data")
 	UParticleSystem* FireEmitter;
+	UPROPERTY(EditAnywhere, Category = "Weapon Data")
+	UParticleSystem* HitEmitter;
 
 	UPROPERTY(EditAnywhere, Category = "Weapon Data")
 	int MaxAmmoInClip;

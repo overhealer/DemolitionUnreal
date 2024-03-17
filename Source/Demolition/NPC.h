@@ -34,6 +34,11 @@ public:
 
 	int MeleeAttack_Implementation() override;
 
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+	float HealthPoints = 10;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

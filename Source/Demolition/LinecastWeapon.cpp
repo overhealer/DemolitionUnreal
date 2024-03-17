@@ -18,7 +18,7 @@ void ALinecastWeapon::Fire()
 		{
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			APlayerCameraManager* PlayerCamera = Player->GetLocalViewingPlayerController()->PlayerCameraManager;
-			const FVector StartLocation = GetActorLocation();
+			const FVector StartLocation = PlayerCamera->GetCameraLocation()/*GetActorLocation()*/;
 			const FVector EndLocation = PlayerCamera->GetCameraLocation() + PlayerCamera->GetActorForwardVector() * 3000.0f;
 			FHitResult HitResult;
 
@@ -33,6 +33,10 @@ void ALinecastWeapon::Fire()
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Shot in " + HitResult.ImpactPoint.ToString()));
 				UGameplayStatics::ApplyDamage(HitResult.GetActor(), WeaponDataRow->BaseDamage, Player->GetInstigatorController(), Player, WeaponDataRow->DamageType);
+				if (HitEmitter)
+				{
+					UGameplayStatics::SpawnEmitterAtLocation(World, HitEmitter, HitResult.ImpactPoint, HitResult.ImpactNormal.Rotation());
+				}
 			}
 		}
 

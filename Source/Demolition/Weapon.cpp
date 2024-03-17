@@ -42,6 +42,7 @@ void AWeapon::OnWeaponPickup()
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("INIT WEAPON"));
 			FireSound = WeaponDataRow->FireSound;
 			FireEmitter = WeaponDataRow->FireEmitter;
+			HitEmitter = WeaponDataRow->HitEmitter;
 		}
 	}
 }

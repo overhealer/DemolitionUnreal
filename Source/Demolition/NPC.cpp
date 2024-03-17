@@ -49,3 +49,16 @@ int ANPC::MeleeAttack_Implementation()
 	return 0;
 }
 
+float ANPC::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	if (HealthPoints <= 0)
+		return 0;
+	Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	HealthPoints -= DamageAmount;
+	if (HealthPoints <= 0)
+	{
+		RagdollStart();
+	}
+	return DamageAmount;
+}
+
