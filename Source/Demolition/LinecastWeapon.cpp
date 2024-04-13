@@ -27,11 +27,11 @@ void ALinecastWeapon::Fire()
 			QueryParams.AddIgnoredActor(Owner);
 
 			World->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, TraceChannelProperty, QueryParams);
-			DrawDebugLine(World, StartLocation, EndLocation, FColor(255, 255, 0), false, -1, 0, 12);
+			//DrawDebugLine(World, StartLocation, EndLocation, FColor(255, 255, 0), false, -1, 0, 12);
 
 			if (HitResult.GetActor() != nullptr)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Shot in " + HitResult.ImpactPoint.ToString()));
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Shot in " + HitResult.ImpactPoint.ToString()));
 				UGameplayStatics::ApplyDamage(HitResult.GetActor(), WeaponDataRow->BaseDamage, Player->GetInstigatorController(), Player, WeaponDataRow->DamageType);
 				if (HitEmitter)
 				{

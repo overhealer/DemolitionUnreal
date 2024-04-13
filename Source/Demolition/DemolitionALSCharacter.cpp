@@ -35,5 +35,5 @@ void ADemolitionALSCharacter::UseWeapon()
 
 	CurrentWeapon->Fire();
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Weapon Used"));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Weapon Used"));
 }

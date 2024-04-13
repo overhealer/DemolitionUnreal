@@ -8,6 +8,8 @@
 #include "Sound/SoundBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/DamageType.h"
+#include "GeometryCollection/GeometryCollectionComponent.h"  
+#include "Field/FieldSystemActor.h"  
 #include "ExplosionComponent.generated.h"
 
 
